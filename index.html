@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>TP-Synthèse</title>
+    <link rel="stylesheet" href="styles/tpSynthese.css">
+    <script src="js/constantes.js"></script>
+    <script src="js/tpSynthese.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Devinez la combinaison secrète</h1>
+    </header>
+
+    <!-- Zone des boutons d'action -->
+    <div id="zActions">
+        <input type="button" id="btnGo" value="Go">
+        <input type="button" id="btnValider" value="Valider"><br><br>
+    </div>
+
+    <!-- Zone des tentatives -->
+    <div id="zTentatives">
+        <form id="t1" autocomplete="off">
+            <span>#1</span>
+            <input type="text" id="t1_c1" class="case">
+            <input type="text" id="t1_c2" class="case">
+            <input type="text" id="t1_c3" class="case">
+            <input type="text" id="t1_c4" class="case">
+            <input type="text" id="t1_c5" class="case">
+            <input type="text" id="t1_c6" class="case">
+            <span id="t1_indiceBienPlace">?</span> /
+            <span id="t1_indiceMalPlace">?</span>
+        </form>
+
+        <form id="t2" autocomplete="off">
+            <span>#2</span>
+            <input type="text" id="t2_c1" class="case">
+            <input type="text" id="t2_c2" class="case">
+            <input type="text" id="t2_c3" class="case">
+            <input type="text" id="t2_c4" class="case">
+            <input type="text" id="t2_c5" class="case">
+            <input type="text" id="t2_c6" class="case">
+            <span id="t2_indiceBienPlace">?</span> /
+            <span id="t2_indiceMalPlace">?</span>
+        </form>
+
+        <form id="t3" autocomplete="off">
+            <span>#3</span>
+            <input type="text" id="t3_c1" class="case">
+            <input type="text" id="t3_c2" class="case">
+            <input type="text" id="t3_c3" class="case">
+            <input type="text" id="t3_c4" class="case">
+            <input type="text" id="t3_c5" class="case">
+            <input type="text" id="t3_c6" class="case">
+            <span id="t3_indiceBienPlace">?</span> /
+            <span id="t3_indiceMalPlace">?</span>
+        </form>
+
+        <form id="t4" autocomplete="off">
+            <span>#4</span>
+            <input type="text" id="t4_c1" class="case">
+            <input type="text" id="t4_c2" class="case">
+            <input type="text" id="t4_c3" class="case">
+            <input type="text" id="t4_c4" class="case">
+            <input type="text" id="t4_c5" class="case">
+            <input type="text" id="t4_c6" class="case">
+            <span id="t4_indiceBienPlace">?</span> /
+            <span id="t4_indiceMalPlace">?</span>
+        </form>
+
+        <form id="t5" autocomplete="off">
+            <span>#5</span>
+            <input type="text" id="t5_c1" class="case">
+            <input type="text" id="t5_c2" class="case">
+            <input type="text" id="t5_c3" class="case">
+            <input type="text" id="t5_c4" class="case">
+            <input type="text" id="t5_c5" class="case">
+            <input type="text" id="t5_c6" class="case">
+            <span id="t5_indiceBienPlace">?</span> /
+            <span id="t5_indiceMalPlace">?</span>
+        </form>
+    </div>
+
+    <!-- Barre de sélection d'un chiffre lorsque la case d'une tentative est cliquée -->
+    <div id="barreSelectionChiffres"></div>
+
+    <!-- Boîte dont le contenu décrit les règles du jeu. Elle sera affichée par une animation CSS -->
+    <div id="boiteRegles">
+        <h3>Règles du jeu</h3>
+        <ul>
+            <li>Le but du jeu est de trouver la combinaison mystère choisie au hasard par l'ordinateur.</li>
+            <li>Chaque combinaison est une suite de N chiffres, chaque chiffre prenant une valeur entre 0 et un chiffre
+                maximal.
+            </li>
+            <li>Il est possible que la combinaison comporte plusieurs fois le même chiffre.</li>
+            <li>Cliquez d'abord sur « Options du jeu » pour régler les paramètres :
+                <ol>
+                    <li>
+                        Nombre maximum de tentatives pour trouver la combinaison secrète. Si vous dépassez ce nombre,
+                        vous perdez.
+                    </li>
+                    <li>
+                        Nombre de chiffres qui forment la combinaison (un petit nombre sera plus facile).
+                    </li>
+                    <li>
+                        Chaque chiffre de la combinaison peut prendre une valeur entre 0 et ... (un petit nombre sera
+                        plus facile).
+                    </li>
+                    <li>
+                        Lors de la validation d'une tentative, les indices donnés seront associés à chacun des chiffres
+                        (positionnels) ou ils seront généraux (non-positionnels).
+                    </li>
+                </ol>
+            </li>
+            <li>
+                Pour chaque tentative :
+                <ol>
+                    <li>
+                        Remplissez la tentative en choisissant les chiffres (avec le pointeur de la souris ou
+                        directement au clavier).
+                    </li>
+                    <li>
+                        Cliquez ensuite le bouton "Valider" (ou appuyez sur &lt;Entrée>) pour valider votre tentative.
+                    </li>
+                </ol>
+            </li>
+            <li>
+                En mode positionnel, la couleur d'arrière-plan de chaque case indique le résultat :
+                <ul>
+                    <li>En <span>vert</span>, cela indique que le chiffre choisi est bon.</li>
+                    <li>
+                        En <span>jaune</span>, cela indique que le chiffre choisi est mal placé. Il
+                        fait donc partie de la combinaison secrète, mais à une autre position.
+                    </li>
+                    <li>En gris, cela indique que ce chiffre ne fait pas partie de la combinaison mystère.</li>
+                </ul>
+            </li>
+            <li>
+                En mode non-positionnel, 2 nombres forment l'indice. :
+                <ul>
+                    <li>Le 1er nombre, en <span>vert</span>, indique le nombre de chiffres de la
+                        tentative qui sont bien placés (le bon chiffre est à la bonne position).
+                    </li>
+                    <li>Le 2ème nombre, en <span>jaune</span>, indique le nombre de chiffres de la
+                        tentative qui sont mal placés (le bon chiffre MAIS à la mauvaise position).
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p>Cliquez dans la fenêtre pour la refermer</p>
+    </div>
+</body>
+</html>
